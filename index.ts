@@ -1,21 +1,27 @@
+import { router } from "./src/router/router";
+import { blogs } from "src/entity/blog";
 import { AppDataSource } from "./src/data-source";
-
-// import { Product } from "./src/entity/Product";
-
 import express from "express";
 
 import bodyParser from "body-parser";
 
 const PORT = 3000;
 
-AppDataSource.initialize().then(async (connection) => {
-  const app = express();
+const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-  app.use(bodyParser.json());
+app.use("/api/blog", router);
 
-//   const ProductRepo = connection.getRepository(Product);
 
-  app.listen(PORT, () => {
-    console.log("App running with port: " + PORT);
+AppDataSource.initialize()
+  .then(() => {
+    console.log("Data Source has been initialized!");
+  })
+  .catch((err) => {
+    console.error("Error during Data Source initialization:", err);
   });
+
+app.listen(PORT, () => {
+  console.log("App running with port: " + PORT);
 });

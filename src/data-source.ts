@@ -11,9 +11,9 @@ export const AppDataSource = new DataSource({
 
   username: "root",
 
-  password: "123456",
+  password: "12345678",
 
-  database: "dbTest",
+  database: "blog",
 
   synchronize: true,
 
